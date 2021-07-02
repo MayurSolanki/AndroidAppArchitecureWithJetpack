@@ -1,23 +1,19 @@
 package com.beepnbuy.seller.repository
 
 import android.content.Context
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.MutableLiveData
 import com.beepnbuy.seller.util.ObserverEvent
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.map
-import java.util.concurrent.Flow
-import java.util.prefs.Preferences
 import javax.inject.Inject
 
 /**
- * Created by Mayur Solanki on 28/06/21, 10:24 pm.
+ * Created by Mayur Solanki on 01/07/21, 10:41 am.
  */
-
-
 class AppPreference @Inject constructor(@ApplicationContext context: Context) {
+
+    private val applicationContext = context.applicationContext
+
+    //  private val dataStore: DataStore<Preferences> = applicationContext.createDataStore(name = "app_preferences")
 
     val errorData = MutableLiveData<ObserverEvent<String>>()
 

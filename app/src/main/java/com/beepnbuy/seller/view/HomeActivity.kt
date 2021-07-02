@@ -8,6 +8,7 @@ import com.beepnbuy.seller.data.DataState
 import com.beepnbuy.seller.viewmodel.HomeViewModel
 import com.beepnbuy.seller.databinding.ActivityHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 
 /**
  * Created by Mayur Solanki on 25/06/21, 2:36 pm.
@@ -27,14 +28,22 @@ class HomeActivity : AppCompatActivity() {
         lifecycle.addObserver(homeViewModel)
 
 
-        homeViewModel.dataState.observe(this,{
-              when(it)  {
-                  is DataState.Error -> Toast.makeText(this,"show error",Toast.LENGTH_SHORT).show()
-                  is DataState.Loading -> Toast.makeText(this,"show progress",Toast.LENGTH_SHORT).show()
-                  is DataState.Success -> Toast.makeText(this,"${it.data!!.homeProductItemDataModelList.size}",Toast.LENGTH_LONG).show()
-              }
+//        homeViewModel.testMthd1().observe(this,{
+//              when(it)  {
+//                  is DataState.Error -> Toast.makeText(this,"show error",Toast.LENGTH_SHORT).show()
+//                  is DataState.Loading -> Toast.makeText(this,"show progress",Toast.LENGTH_SHORT).show()
+//                  is DataState.Success -> Toast.makeText(this,"${it.data!!}",Toast.LENGTH_LONG).show()
+//              }
+//        })
 
+        homeViewModel.dataState.observe(this,{
+            when(it)  {
+                is DataState.Error -> Toast.makeText(this,"show error ${it.exception}",Toast.LENGTH_SHORT).show()
+                is DataState.Loading -> Toast.makeText(this,"show progress",Toast.LENGTH_SHORT).show()
+                is DataState.Success -> Toast.makeText(this," size : ${it.data!!.size}",Toast.LENGTH_LONG).show()
+            }
         })
+
 
     }
 

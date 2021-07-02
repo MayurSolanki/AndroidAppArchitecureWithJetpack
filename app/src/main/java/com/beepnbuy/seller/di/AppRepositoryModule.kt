@@ -19,6 +19,7 @@ object AppRepositoryModule {
 
     @Singleton
     @Provides
+    
     fun provideAppRepository(
          appRestApi: AppRestApi,
          appDatabase: AppDatabase,

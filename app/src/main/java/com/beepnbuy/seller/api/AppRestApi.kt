@@ -13,7 +13,7 @@ interface AppRestApi {
         endPoint: String,
         queryParams: Map<String, String>,
         result: Type,
-        errorMessage: (errorMsg:String) -> Unit
+        errorMessage: suspend(errorMsg:String) -> Unit
     ): T?
 
     suspend fun <T : Any> postRequestWithHeader(
@@ -21,7 +21,7 @@ interface AppRestApi {
         header: String,
         queryParams: Map<String, String>,
         result: Type,
-        errorMessage: (errorMsg:String) -> Unit
+        errorMessage: suspend(errorMsg:String) -> Unit
     ): T?
 
     suspend fun <T : Any> postRequestWithHeaderBody(
@@ -30,21 +30,21 @@ interface AppRestApi {
         queryParams: Map<String, String>,
         body: Any?,
         result: Type,
-        errorMessage: (errorMsg:String) -> Unit
+        errorMessage: suspend(errorMsg:String) -> Unit
     ): T?
 
     suspend fun <T : Any> postBodyRequest(
         endPoint: String,
         body: Any,
         result: Type,
-        errorMessage: (errorMsg:String) -> Unit
+        errorMessage: suspend(errorMsg:String) -> Unit
     ): T?
 
     suspend fun <T : Any> getRequest(
         endPoint: String,
         queryParams: Map<String, String>,
         result: Type,
-        errorMessage: (errorMsg: String) -> Unit
+         errorMessage: suspend (errorMsg: String) -> Unit
     ): T?
 
     suspend fun <T : Any> getRequestAuth(
@@ -52,7 +52,7 @@ interface AppRestApi {
         endPoint: String,
         queryParams: Map<String, String>,
         result: Type,
-        errorMessage: (errorMsg:String) -> Unit
+        errorMessage: suspend(errorMsg:String) -> Unit
     ): T?
 
     suspend fun <T : Any> deleteRequest(
@@ -60,34 +60,34 @@ interface AppRestApi {
         varientId: String,
         queryParams: Map<String, String>,
         result: Type,
-        errorMessage: (errorMsg:String) -> Unit
+        errorMessage: suspend(errorMsg:String) -> Unit
     ): T?
 
     suspend fun <T : Any> deleteRequest(
         endPoint: String,
         result: Type,
-        errorMessage: (errorMsg:String) -> Unit
+        errorMessage: suspend(errorMsg:String) -> Unit
     ): T?
 
     suspend fun <T : Any> deleteRequest(
         endPoint: String,
         queryParams: Map<String, String>,
         result: Type,
-        errorMessage: (errorMsg:String) -> Unit
+        errorMessage: suspend(errorMsg:String) -> Unit
     ): T?
 
     suspend fun <T : Any> putBodyRequest(
         endPoint: String,
         body: Any,
         result: Type,
-        errorMessage: (errorMsg:String) -> Unit
+        errorMessage: suspend(errorMsg:String) -> Unit
     ): T?
 
     suspend fun <T : Any> putRequest(
         endPoint: String,
         queryParams: Map<String, String>,
         result: Type,
-        errorMessage: (errorMsg:String) -> Unit
+        errorMessage: suspend(errorMsg:String) -> Unit
     ): T?
 
 
@@ -95,6 +95,6 @@ interface AppRestApi {
         endPoint: String,
         body: Any,
         result: Type,
-        errorMessage: (errorMsg:String) -> Unit
+        errorMessage: suspend(errorMsg:String) -> Unit
     ): T?
 }

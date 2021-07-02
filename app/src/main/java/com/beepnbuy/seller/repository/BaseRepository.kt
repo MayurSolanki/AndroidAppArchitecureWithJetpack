@@ -26,7 +26,7 @@ protected suspend fun <T : Any> doNetworkCall(
     call: suspend () -> Response<BeepDataResponse>,
     resultType: Type,
     apiName: String,
-    errorFun: (String) -> Unit
+    errorFun: suspend (errorMsg: String) -> Unit
 ): T? {
     @Suppress("UNCHECKED_CAST")
     return try {
@@ -69,8 +69,9 @@ protected suspend fun <T : Any> doNetworkCall(
                     "Client Error(${response.code()}): ${response.message()} / ${response.errorBody()
                         ?.string()}"
                 )
-                errorFun(error?.message ?: "Something went wrong.")
-                if(apiName == ACCESS_TOKEN_REFRESH_API) null else error as? T
+                errorFun(error?.message ?: "Something went wrong. (Client Error)")
+                null
+                //if(apiName == ACCESS_TOKEN_REFRESH_API) null else error as? T
             }
             in 500..600 -> { // server errors
                 Timber.e("Server Error(${response.code()}): ${response.message()} / ${response.errorBody()}")

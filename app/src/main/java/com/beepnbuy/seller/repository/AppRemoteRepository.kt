@@ -16,7 +16,7 @@ class AppRemoteRepository @Inject constructor(val apiClient: ApiClient):  BaseRe
         endPoint: String,
         queryParams: Map<String, String>,
         result: Type,
-        errorMessage: (String) -> Unit
+        errorMessage: suspend(String) -> Unit
     ): T? {
         return doNetworkCall(
             call = { apiClient.postApiCallAsync(endPoint = endPoint, params = queryParams) },
@@ -31,7 +31,7 @@ class AppRemoteRepository @Inject constructor(val apiClient: ApiClient):  BaseRe
         header: String,
         queryParams: Map<String, String>,
         result: Type,
-        errorMessage: (String) -> Unit
+        errorMessage: suspend(String) -> Unit
     ): T? {
         return doNetworkCall(
             call = { apiClient.postApiCallAsyncWithHeader(endPoint = endPoint, params = queryParams,header) },
@@ -47,7 +47,7 @@ class AppRemoteRepository @Inject constructor(val apiClient: ApiClient):  BaseRe
         queryParams: Map<String, String>,
         body:Any?,
         result: Type,
-        errorMessage: (String) -> Unit
+        errorMessage: suspend(String) -> Unit
     ): T? {
         return doNetworkCall(
             call = { apiClient.postApiCallAsyncWithHeaderBody(endPoint = endPoint, params = queryParams,header, body) },
@@ -61,7 +61,7 @@ class AppRemoteRepository @Inject constructor(val apiClient: ApiClient):  BaseRe
         endPoint: String,
         body:Any,
         result: Type,
-        errorMessage: (errorMsg: String) -> Unit
+        errorMessage: suspend(errorMsg: String) -> Unit
     ): T? {
         return doNetworkCall(
             call = { apiClient.postBodyApiCallAsync(endPoint = endPoint, data = body) },
@@ -75,7 +75,7 @@ class AppRemoteRepository @Inject constructor(val apiClient: ApiClient):  BaseRe
         endPoint: String,
         queryParams: Map<String, String>,
         result: Type,
-        errorMessage: (errorMsg: String) -> Unit
+        errorMessage: suspend (errorMsg: String) -> Unit
     ): T? {
         return doNetworkCall(
             call = { apiClient.getApiCallAsync(endPoint = endPoint, params = queryParams) },
@@ -90,7 +90,7 @@ class AppRemoteRepository @Inject constructor(val apiClient: ApiClient):  BaseRe
         endPoint: String,
         queryParams: Map<String, String>,
         result: Type,
-        errorMessage: (errorMsg: String) -> Unit
+        errorMessage:suspend (errorMsg: String) -> Unit
     ): T? {
         return doNetworkCall(
             call = { apiClient.getApiCallAsyncAuthHeader(endPoint = endPoint, params = queryParams, Authorization = header) },
@@ -106,7 +106,7 @@ class AppRemoteRepository @Inject constructor(val apiClient: ApiClient):  BaseRe
         varientId: String,
         queryParams: Map<String, String>,
         result: Type,
-        errorMessage: (String) -> Unit
+        errorMessage: suspend(String) -> Unit
     ): T? {
         return doNetworkCall(
             call = { apiClient.deleteApiCallAsync(endPoint = endPoint,varientId = varientId, params = queryParams) },
@@ -119,7 +119,7 @@ class AppRemoteRepository @Inject constructor(val apiClient: ApiClient):  BaseRe
     override suspend fun <T : Any> deleteRequest(
         endPoint: String,
         result: Type,
-        errorMessage: (errorMsg: String) -> Unit
+        errorMessage:suspend (errorMsg: String) -> Unit
     ): T? {
 
         return doNetworkCall(
@@ -133,7 +133,7 @@ class AppRemoteRepository @Inject constructor(val apiClient: ApiClient):  BaseRe
         endPoint: String,
         queryParams: Map<String, String>,
         result: Type,
-        errorMessage: (String) -> Unit
+        errorMessage: suspend(String) -> Unit
     ): T? {
         return doNetworkCall(
             call = { apiClient.deleteApiCallAsync(endPoint = endPoint, params = queryParams) },
@@ -146,7 +146,7 @@ class AppRemoteRepository @Inject constructor(val apiClient: ApiClient):  BaseRe
         endPoint: String,
         body:Any,
         result: Type,
-        errorMessage: (errorMsg: String) -> Unit
+        errorMessage: suspend(errorMsg: String) -> Unit
     ): T? {
         return doNetworkCall(
             call = { apiClient.putBodyApiCallAsync(endPoint = endPoint, data = body) },
@@ -160,7 +160,7 @@ class AppRemoteRepository @Inject constructor(val apiClient: ApiClient):  BaseRe
         endPoint: String,
         queryParams: Map<String, String>,
         result: Type,
-        errorMessage: (errorMsg: String) -> Unit
+        errorMessage:suspend (errorMsg: String) -> Unit
     ): T? {
         return doNetworkCall(
             call = { apiClient.putApiCallAsync(endPoint = endPoint, params = queryParams) },
@@ -175,7 +175,7 @@ class AppRemoteRepository @Inject constructor(val apiClient: ApiClient):  BaseRe
         endPoint: String,
         body:Any,
         result: Type,
-        errorMessage: (errorMsg: String) -> Unit
+        errorMessage: suspend(errorMsg: String) -> Unit
     ): T? {
         return doNetworkCall(
             call = { apiClient.postBodyApiWithDeleteCallAsync(endPoint = endPoint, data = body) },
