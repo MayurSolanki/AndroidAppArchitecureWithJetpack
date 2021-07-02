@@ -19,19 +19,19 @@ open class BaseVM : ViewModel() {
     @Inject
     lateinit var appPreference : AppPreference
 
-    //create a new Job
-    open val parentJob: Job = Job()
-
-    //create a coroutine context with the job and the dispatcher
-    val coroutineContext: CoroutineContext get() = parentJob + Dispatchers.IO
-
-    //create a coroutine scope with the coroutine context
-    open val scope = CoroutineScope(coroutineContext)
+//    //create a new Job
+//    open val parentJob: Job = Job()
+//
+//    //create a coroutine context with the job and the dispatcher
+//    val coroutineContext: CoroutineContext get() = parentJob + Dispatchers.IO
+//
+//    //create a coroutine scope with the coroutine context
+//    open val scope = CoroutineScope(coroutineContext)
 
 
 
     override fun onCleared() {
-        parentJob.cancel()
+//        parentJob.cancel()
         super.onCleared()
     }
 

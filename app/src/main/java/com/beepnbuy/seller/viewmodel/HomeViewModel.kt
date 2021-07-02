@@ -12,10 +12,7 @@ import com.beepnbuy.seller.repository.AppRepository
 import com.emxcel.beepnbuy.data.remote.BeepDataResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -43,18 +40,21 @@ class HomeViewModel @Inject constructor(
 
         val request = DashboardRequestModel(userid = null,latitude = "23.083169598564044",longitude = "72.5248845666647" ,cartToken = "32d8ff5b4a52d62b")
 
+        // observe some changes on io and then print result on main
+        // dispatcher always will be same as in the scope in which we’re collecting data from our flow.
+        //By default, the producer of a flow builder executes in the CoroutineContext of the coroutine that collects from it, and
         viewModelScope.launch {
-            appRepository.getDataFromApi(request).collect {
-                when(it){
-                    is DataState.Error ->  _datastate.value = it
-                    is DataState.Loading ->   _datastate.value = DataState.Loading
-                    is DataState.Success -> {
-                        val someValue : List<HomeProductItemDataModel> =  it.data!!.homeProductItemDataModelList.take(1)
-                        _datastate.value = DataState.Success(someValue)
-                    }
-                }
-
-
+            appRepository.getDataFromApi(request)
+                .flowOn(Dispatchers.IO)
+                .collect {
+                        when(it){
+                            is DataState.Error ->  _datastate.value = it
+                            is DataState.Loading ->   _datastate.value = DataState.Loading
+                            is DataState.Success -> {
+                                val someValue : List<HomeProductItemDataModel> =  it.data!!.homeProductItemDataModelList.take(1)
+                                _datastate.value = DataState.Success(someValue)
+                            }
+                        }
             }
         }
     }
