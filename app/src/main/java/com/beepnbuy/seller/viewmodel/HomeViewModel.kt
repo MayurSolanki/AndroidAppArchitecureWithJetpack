@@ -27,8 +27,8 @@ class HomeViewModel @Inject constructor(
 ) : BaseVM(), LifecycleObserver {
 
     private val _datastate : MutableLiveData<DataState<List<HomeProductItemDataModel>>> = MutableLiveData()
-    val dataState : LiveData<DataState<List<HomeProductItemDataModel>>>
-        get() = _datastate
+    val dataState : LiveData<DataState<List<HomeProductItemDataModel>>> get() = _datastate
+
 
     init {
 
@@ -44,10 +44,11 @@ class HomeViewModel @Inject constructor(
         // dispatcher always will be same as in the scope in which we’re collecting data from our flow.
         //By default, the producer of a flow builder executes in the CoroutineContext of the coroutine that collects from it, and
         viewModelScope.launch {
+
             appRepository.getDataFromApi(request)
-                .flowOn(Dispatchers.IO)
+                .flowOn(Dispatchers.Default)
                 .collect {
-                        when(it){
+                    when(it){
                             is DataState.Error ->  _datastate.value = it
                             is DataState.Loading ->   _datastate.value = DataState.Loading
                             is DataState.Success -> {

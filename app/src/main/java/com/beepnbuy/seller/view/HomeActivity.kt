@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.collect
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var activityHomeBinding: ActivityHomeBinding
-    private  val homeViewModel: HomeViewModel by viewModels()
+    private  val homeViewModel: HomeViewModel by viewModels<HomeViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

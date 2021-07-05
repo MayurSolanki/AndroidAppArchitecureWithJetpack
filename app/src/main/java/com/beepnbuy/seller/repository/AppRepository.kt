@@ -15,6 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -48,7 +49,7 @@ class AppRepository (
                 emit(DataState.Success(data))
             }
 
-       }
+       }.flowOn(Dispatchers.IO)
 
     suspend fun getDataFromLocalDb() {
         appDatabase.appDao().deleteAll()
