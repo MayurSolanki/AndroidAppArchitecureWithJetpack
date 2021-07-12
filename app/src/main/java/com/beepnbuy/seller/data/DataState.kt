@@ -1,6 +1,7 @@
 package com.beepnbuy.seller.data
 
-import java.lang.Exception
+import javax.annotation.Nullable
+
 
 /**
  * Created by Mayur Solanki on 28/06/21, 2:49 pm.
@@ -10,7 +11,7 @@ import java.lang.Exception
 sealed class DataState <out T>(
     val data : T? = null,
 ){
-     class Success<out T>(data: T): DataState<T>(data)
-     class Error(val exception: String):DataState<Nothing>()
-     object Loading: DataState<Nothing>()
+    class Success<out T>(data: T): DataState<T>(data)
+    class Error(val exception: String,val errorCode : Int): DataState<Nothing>()
+    object Loading: DataState<Nothing>()
 }

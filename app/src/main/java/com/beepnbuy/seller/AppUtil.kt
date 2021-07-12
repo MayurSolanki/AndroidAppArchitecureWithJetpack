@@ -5,6 +5,9 @@ import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.shareIn
 import java.io.File
 import java.io.IOException
 import java.io.Reader
@@ -36,3 +39,9 @@ inline fun <reified T> Reader.fromJson(): T = Gson().fromJson(this, T::class.jav
 inline fun <reified T> T.toJsonString(): String = Gson().toJson(this, T::class.java)
 
 class NetworkException(exception: String) : IOException(exception)
+
+fun <T> Flow<T>.shareWhileObserved(coroutineScope: CoroutineScope) = shareIn(
+    scope = coroutineScope,
+    started = SharingStarted.WhileSubscribed(),
+    replay = 0
+)

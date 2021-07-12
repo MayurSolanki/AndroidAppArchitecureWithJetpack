@@ -1,6 +1,5 @@
 package com.beepnbuy.seller.repository
 
-import com.beepnbuy.seller.AppConstant.ACCESS_TOKEN_REFRESH_API
 import com.beepnbuy.seller.NetworkException
 import com.beepnbuy.seller.fromJson
 import com.beepnbuy.seller.getType
@@ -18,7 +17,7 @@ import kotlin.coroutines.cancellation.CancellationException
  * Created by Mayur Solanki on 28/06/21, 3:15 pm.
  */
 open class BaseRepository  {
- private val beepResponse = getType<BeepResponse>()
+// private val beepResponse = getType<BeepResponse>()
  private val beepDataResponse = getType<BeepDataResponse>()
 
 @Suppress("BlockingMethodInNonBlockingContext")
@@ -26,7 +25,7 @@ protected suspend fun <T : Any> doNetworkCall(
     call: suspend () -> Response<BeepDataResponse>,
     resultType: Type,
     apiName: String,
-    errorFun: suspend (errorMsg: String) -> Unit
+    errorFun: suspend (errorMessage: String,errorCode:  Int) -> Unit
 ): T? {
     @Suppress("UNCHECKED_CAST")
     return try {
@@ -38,10 +37,7 @@ protected suspend fun <T : Any> doNetworkCall(
                         it.code == 401 -> {
                             Gson().fromJson<T>(it.toJsonString(), resultType)
                         }
-                        it.code == 200 && resultType == beepResponse -> {
-                            // return response without data
-                            Gson().fromJson<T>(it.toJsonString(), resultType)
-                        }
+
                         it.code == 200 && resultType == beepDataResponse -> {
                             Gson().fromJson<T>(it.toJsonString(), resultType)
                         }
@@ -50,14 +46,14 @@ protected suspend fun <T : Any> doNetworkCall(
                             // return data field
                             Gson().fromJson<T>(it.data, resultType)
                         }
-                        it.code == 201 && resultType == beepResponse -> {
+                        it.code == 201 && resultType == beepDataResponse -> {
                             // return data field
                             Gson().fromJson<T>(it.toJsonString(), resultType)
                         }
 
                         else -> {
                             // none of the case return error
-                            it.message?.let { error -> errorFun(error) }
+                            it.message?.let { error -> errorFun(error, it.code) }
                             null
                         }
                     }
@@ -69,18 +65,18 @@ protected suspend fun <T : Any> doNetworkCall(
                     "Client Error(${response.code()}): ${response.message()} / ${response.errorBody()
                         ?.string()}"
                 )
-                errorFun(error?.message ?: "Something went wrong. (Client Error)")
+                errorFun(error?.message ?: "Something went wrong. (Client Error)",response.code())
                 null
                 //if(apiName == ACCESS_TOKEN_REFRESH_API) null else error as? T
             }
             in 500..600 -> { // server errors
                 Timber.e("Server Error(${response.code()}): ${response.message()} / ${response.errorBody()}")
-                errorFun("Something went wrong.(Internal Server Error)")
+                errorFun("Something went wrong.(Internal Server Error)",response.code())
                 null
             }
             else -> { // other errors
                 Timber.e("Other Error(${response.code()}):${response.message()} / ${response.errorBody()}")
-                errorFun("Something went wrong.")
+                errorFun("Something went wrong.", response.code())
                 null
             }
         }
@@ -89,15 +85,15 @@ protected suspend fun <T : Any> doNetworkCall(
         when (ex) {
             is CancellationException -> null // avoid error message for coroutine job cancellation
             is NetworkException -> {
-                errorFun(ex.message ?: "No Internet")
+                errorFun(ex.message ?: "No Internet", -1)
                 null
             }
             is SocketTimeoutException -> {
-                errorFun("Time out.")
+                errorFun("Time out.", -2)
                 null
             }
             else -> {
-                errorFun("Something went Wrong")
+                errorFun("Something went Wrong", -3)
                 null
             }
         }
@@ -105,4 +101,5 @@ protected suspend fun <T : Any> doNetworkCall(
        // dismissProgress()
     }
 }
+
 }

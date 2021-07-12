@@ -7,6 +7,7 @@ import com.beepnbuy.seller.util.ObserverEvent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
@@ -20,7 +21,7 @@ open class BaseVM : ViewModel() {
     lateinit var appPreference : AppPreference
 
 //    //create a new Job
-//    open val parentJob: Job = Job()
+//    open val parentJob: Job = SupervisorJob()
 //
 //    //create a coroutine context with the job and the dispatcher
 //    val coroutineContext: CoroutineContext get() = parentJob + Dispatchers.IO

@@ -8,17 +8,8 @@ import com.beepnbuy.seller.data.DashboardResponseModel
 import com.beepnbuy.seller.data.DataState
 import com.beepnbuy.seller.database.AppDatabase
 import com.beepnbuy.seller.getType
-import com.emxcel.beepnbuy.data.remote.BeepDataResponse
-import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
 /**
  * Created by Mayur Solanki on 28/06/21, 3:09 pm.
@@ -39,17 +30,16 @@ class AppRepository (
                 "search/dashboard",
                 requestModel.convertToMap(),
                 getType<DashboardResponseModel>()
-            ) { errorMsg ->
-                emit(DataState.Error(errorMsg))
+            ){ errorMsg, errorCode ->
+                emit(DataState.Error(errorMsg,errorCode))
                 Log.d("TAG", "$errorMsg")
-                // appPreference.setError(errorMsg)
             }
 
             if(data != null){
                 emit(DataState.Success(data))
             }
 
-       }.flowOn(Dispatchers.IO)
+       }
 
     suspend fun getDataFromLocalDb() {
         appDatabase.appDao().deleteAll()
