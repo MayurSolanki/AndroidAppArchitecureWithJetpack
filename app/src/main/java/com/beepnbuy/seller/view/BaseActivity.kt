@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import com.beepnbuy.seller.shareWhileObserved
+import dagger.hilt.android.AndroidEntryPoint
 import dev.shreyaspatil.noty.utils.ConnectionState
 import dev.shreyaspatil.noty.utils.observeConnectivityAsFlow
 import kotlinx.coroutines.flow.Flow
@@ -13,6 +14,7 @@ import kotlinx.coroutines.flow.Flow
 /**
  * Created by Mayur Solanki on 09/07/21, 12:14 pm.
  */
+@AndroidEntryPoint
 abstract class BaseActivity : AppCompatActivity()  {
 
     private lateinit var connectionState: Flow<ConnectionState>
