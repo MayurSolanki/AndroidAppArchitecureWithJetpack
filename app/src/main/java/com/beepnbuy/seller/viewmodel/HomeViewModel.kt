@@ -2,16 +2,12 @@ package com.beepnbuy.seller.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.*
-import com.beepnbuy.seller.MyApplication
 import com.beepnbuy.seller.data.*
-import com.beepnbuy.seller.repository.AppPreference
 import com.beepnbuy.seller.repository.AppRepository
-import com.emxcel.beepnbuy.data.remote.BeepDataResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**

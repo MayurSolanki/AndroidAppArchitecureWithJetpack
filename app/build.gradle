@@ -17,9 +17,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        multiDexEnabled true
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -53,11 +51,11 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     def lifecycle_version = "2.3.1"
     def scalableVersion = "1.0.6"
     def lifecycleVersion = "'2.3.0"
     def nav_version= "2.3.5"
+    def logging_interceptor_version="4.8.1"
 
 
 
@@ -93,6 +91,7 @@ dependencies {
     // Retrofit + GSON
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
     implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:${logging_interceptor_version}"
 
     //data store
     implementation "androidx.datastore:datastore-preferences:1.0.0-beta02"
@@ -115,8 +114,19 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:${nav_version}"
     implementation "androidx.navigation:navigation-ui-ktx:${nav_version}"
 
+    //web sockets
+    implementation 'com.tinder.scarlet:scarlet:0.1.12'
+    implementation "com.tinder.scarlet:websocket-okhttp:0.1.10"
+    implementation "com.tinder.scarlet:stream-adapter-rxjava2:0.1.10"
+    implementation "com.tinder.scarlet:stream-adapter-coroutines:0.1.10"
+    implementation "com.tinder.scarlet:message-adapter-gson:0.1.10"
+    implementation "com.tinder.scarlet:lifecycle-android:0.1.10"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+}
+kapt {
+    correctErrorTypes true
 }

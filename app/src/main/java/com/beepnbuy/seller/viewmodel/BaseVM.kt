@@ -16,7 +16,6 @@ import kotlin.coroutines.CoroutineContext
  */
 open class BaseVM : ViewModel() {
 
-
     @Inject
     lateinit var appPreference : AppPreference
 
