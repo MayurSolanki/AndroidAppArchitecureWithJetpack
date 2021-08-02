@@ -29,8 +29,6 @@ class HomeActivity : BaseActivity() {
     lateinit var  locationPostSocket :  LocationPostSocket
 
 
-
-
     @SuppressLint("CheckResult")
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
