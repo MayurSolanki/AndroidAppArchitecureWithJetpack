@@ -1,4 +1,4 @@
-package com.beepnbuy.seller.view
+package com.beepnbuy.seller.view.fragment
 
 import androidx.fragment.app.Fragment
 import com.beepnbuy.seller.R

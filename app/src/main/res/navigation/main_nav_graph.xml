@@ -7,24 +7,111 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.beepnbuy.seller.view.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        android:name="com.beepnbuy.seller.view.fragment.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" >
+
+        <action
+            android:id="@+id/action_homeFragment_to_chooseReceiverFragment"
+            app:destination="@id/chooseReceiverFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left"
+            app:popUpToInclusive="false" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_viewBalanceFragment"
+            app:destination="@id/viewBalanceFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left"/>
+
+        <action
+            android:id="@+id/action_homeFragment_to_viewTransactionsFragment"
+            app:destination="@id/viewTransactionsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left"/>
+
+    </fragment>
     <fragment
         android:id="@+id/viewBalanceFragment"
-        android:name="com.beepnbuy.seller.view.ViewBalanceFragment"
-        android:label="fragment_view_balance"
+        android:name="com.beepnbuy.seller.view.fragment.ViewBalanceFragment"
+        android:label="view balance"
         tools:layout="@layout/fragment_view_balance" />
     <fragment
         android:id="@+id/viewTransactionsFragment"
-        android:name="com.beepnbuy.seller.view.ViewTransactionsFragment"
-        android:label="fragment_view_transactions"
+        android:name="com.beepnbuy.seller.view.fragment.ViewTransactionsFragment"
+        android:label="Transactions"
         tools:layout="@layout/fragment_view_transactions" />
     <fragment
         android:id="@+id/chooseReceiverFragment"
-        android:name="com.beepnbuy.seller.view.ChooseReceiverFragment"
-        android:label="fragment_choose_receiver"
-        tools:layout="@layout/fragment_choose_receiver" />
+        android:name="com.beepnbuy.seller.view.fragment.ChooseReceiverFragment"
+        android:label="choose receiver"
+        tools:layout="@layout/fragment_choose_receiver" >
+        <action
+            android:id="@+id/action_chooseReceiverFragment_to_sendCashFragment"
+            app:destination="@id/sendCashFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/sendCashFragment"
+        android:name="com.beepnbuy.seller.view.fragment.SendCashFragment"
+        android:label="Send Cash to - {receiverName}"
+        tools:layout="@layout/fragment_send_cash">
+        <argument
+            android:name="receiverName"
+            app:argType="string" />
+        <argument
+            android:name="amount"
+            app:argType="long"
+            android:defaultValue="100L" />
+        <action
+            android:id="@+id/action_sendCashFragment_to_confirmDialogFragment"
+            app:destination="@id/confirmDialogFragment" />
+        <action
+            android:id="@+id/action_sendCashFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+        <deepLink
+            android:id="@+id/deepLink"
+            app:uri="www.navcomponent.com/{receiverName}" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/confirmDialogFragment"
+        android:name="com.beepnbuy.seller.view.fragment.ConfirmDialogFragment"
+        android:label="ConfirmDialogFragment"
+        tools:layout="@layout/fragment_confirm_dialog">
+        <argument
+            android:name="receiverName"
+            app:argType="string" />
+        <argument
+            android:name="amount"
+            app:argType="long" />
+    </dialog>
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.beepnbuy.seller.view.fragment.SettingsFragment"
+        android:label="SettingsFragment"
+        tools:layout="@layout/fragment_setting"/>
+    <fragment
+        android:id="@+id/aboutAppFragment"
+        android:name="com.beepnbuy.seller.view.fragment.AboutAppFragment"
+        android:label="About App"
+        tools:layout="@layout/fragment_about_app" />
+
+    <action android:id="@+id/action_global_aboutAppFragment" app:destination="@id/aboutAppFragment" />
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.beepnbuy.seller.view.fragment.NotificationsFragment"
+        android:label="Notifications"
+        tools:layout="@layout/fragment_notifications" />
 
 
 </navigation>

@@ -1,4 +1,4 @@
-package com.beepnbuy.seller.view
+package com.beepnbuy.seller.view.activity
 
 import android.content.Context
 import android.os.Bundle
@@ -12,7 +12,7 @@ import dev.shreyaspatil.noty.utils.observeConnectivityAsFlow
 import kotlinx.coroutines.flow.Flow
 
 /**
- * Created by Mayur Solanki on 09/07/21, 12:14 pm.
+ * Created by Mayur Solanki on 03/08/21, 12:02 pm.
  */
 @AndroidEntryPoint
 abstract class BaseActivity : AppCompatActivity()  {
@@ -48,6 +48,3 @@ abstract class BaseActivity : AppCompatActivity()  {
 
 
 }
-
-
-
