@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/loginFragment">
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.beepnbuy.seller.view.fragment.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_otpFragment"
+            app:destination="@id/otpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/otpFragment"
+        android:name="com.beepnbuy.seller.view.fragment.OtpFragment"
+        android:label="OtpFragment"
+        tools:layout="@layout/fragment_otp">
+
+        <action
+            android:id="@+id/action_otpFragment_to_loginNowDialogFragment"
+            app:destination="@id/loginNowDialogFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginNowDialogFragment"
+        android:name="com.beepnbuy.seller.view.fragment.LoginNowDialogFragment"
+        android:label="fragment_login_now_dialog"
+        tools:layout="@layout/fragment_login_now_dialog" >
+        <action
+            android:id="@+id/action_loginNowDialogFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>

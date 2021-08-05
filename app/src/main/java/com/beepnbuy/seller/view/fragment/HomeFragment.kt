@@ -1,5 +1,6 @@
 package com.beepnbuy.seller.view.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.beepnbuy.seller.R
 import com.beepnbuy.seller.databinding.FragmentHomeBinding
+import com.beepnbuy.seller.view.activity.HomeActivity
 
 
 class HomeFragment : BaseFragment(R.layout.fragment_home){
@@ -60,6 +62,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home){
             val action = HomeFragmentDirections.actionHomeFragmentToChooseReceiverFragment()
             navController.navigate(action)
         }
+
 
 
 

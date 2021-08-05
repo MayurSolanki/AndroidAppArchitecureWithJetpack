@@ -157,7 +157,6 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun hideBottomNav() {
-        activityHomeBinding.toolbar.visibility = View.GONE
         activityHomeBinding.bottomNavView.visibility = View.GONE
 
     }
